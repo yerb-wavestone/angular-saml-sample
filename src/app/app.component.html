@@ -1,0 +1,38 @@
+<fieldset>
+  <legend>JWT API</legend>
+
+  <div>
+    <button type="button" (click)="checkJwtToken()">Get token or login</button>
+    <button type="button" (click)="callJwtProtectedApi()">Call API</button>
+  </div>
+  <div *ngIf="jwtToken">
+    You are authenticated and your API token is<br />
+    <span style="color: blue; white-space: pre-wrap">{{ jwtToken }}</span>
+  </div>
+  <div *ngIf="jwtApiResult">
+    We just made a call to the backend api with the above token and the result is
+    <div style="color: blue; white-space: pre-wrap; text-align: left">{{ jwtApiResult | json }}</div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>SAML API</legend>
+
+  <div>
+    <button type="button" (click)="callSamlProtectedApi()">Call API</button>
+  </div>
+  <div *ngIf="samlApiResult">
+    We just made a call to the backend api with the above token and the result is
+    <div style="color: blue; white-space: pre-wrap; text-align: left">{{ samlApiResult | json }}</div>
+  </div>
+</fieldset>
+
+<fieldset *ngIf="authenticated">
+  <legend>logout</legend>
+  <button (click)=localLogout()>locally</button>
+  <button (click)=globalLogout()>globally</button>
+</fieldset>
+
+<div *ngIf="logoutType">
+  Logging out {{ logoutSuccess === 'local' ? 'locally' : 'globally'}}.
+</div>

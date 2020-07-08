@@ -1,0 +1,13 @@
+{
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "files.exclude": {
+    // folders
+    ".history/**": true,
+    "node_modules/**": true,
+    // files
+    "package-lock.json": false,
+  },
+  "editor.codeActionsOnSave": [
+    "source.organizeImports"
+  ]
+}
