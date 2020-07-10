@@ -5,6 +5,7 @@ import { LoginService } from "./login.service";
 
 type LogoutType = 'local' | 'global';
 type ApiType = 'jwt' | 'saml';
+type RestMethod = 'GET' | 'POST';
 
 @Component({
   selector: 'app-root',
@@ -40,8 +41,18 @@ export class AppComponent {
       .subscribe(res => this.processApiResult('jwt', res.body));
   }
 
-  callSamlProtectedApi() {
-    this.http.get('/service/saml/api/mycontroller', { observe: 'response' })
+  callSamlProtectedApi(method: RestMethod = 'GET') {
+    const url = '/service/saml/api/mycontroller';
+    (
+      method === 'POST' ?
+        this.http.post(url, {}, { observe: 'response' }) :
+        this.http.get(url, { observe: 'response' })
+    )
+      .subscribe(res => this.processApiResult('saml', res.body));
+  }
+
+  callOther() {
+    this.http.get('/service/other', { observe: 'response' })
       .subscribe(res => this.processApiResult('saml', res.body));
   }
 

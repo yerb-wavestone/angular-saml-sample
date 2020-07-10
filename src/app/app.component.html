@@ -1,4 +1,4 @@
-<fieldset>
+<!-- <fieldset>
   <legend>JWT API</legend>
 
   <div>
@@ -13,13 +13,15 @@
     We just made a call to the backend api with the above token and the result is
     <div style="color: blue; white-space: pre-wrap; text-align: left">{{ jwtApiResult | json }}</div>
   </div>
-</fieldset>
+</fieldset> -->
 
 <fieldset>
   <legend>SAML API</legend>
 
   <div>
-    <button type="button" (click)="callSamlProtectedApi()">Call API</button>
+    <button type="button" (click)="callSamlProtectedApi('GET')">Call API (GET)</button>
+    <button type="button" (click)="callSamlProtectedApi('POST')">Call API (POST)</button>
+    <button type="button" (click)="callOther()">Call other</button>
   </div>
   <div *ngIf="samlApiResult">
     We just made a call to the backend api with the above token and the result is
@@ -27,12 +29,12 @@
   </div>
 </fieldset>
 
-<fieldset *ngIf="authenticated">
+<fieldset>
   <legend>logout</legend>
   <button (click)=localLogout()>locally</button>
   <button (click)=globalLogout()>globally</button>
 </fieldset>
 
 <div *ngIf="logoutType">
-  Logging out {{ logoutSuccess === 'local' ? 'locally' : 'globally'}}.
+  Logging out {{ logoutType === 'local' ? 'locally' : 'globally'}}.
 </div>

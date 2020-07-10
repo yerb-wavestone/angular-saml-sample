@@ -30,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        if ((!this.isApiUrl(req.url)) || !error || error.status !== 401) {
+        if ((!this.isBackendUrl(req.url)) || !error || error.status !== 401) {
           return throwError(error);
         }
         const locationHeader = error.headers.get('Location');
@@ -40,6 +40,12 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
+  /** test if given URL is for backend */
+  private isBackendUrl(url: string): boolean {
+    const isBackend = !!backendPrefixes.find(start => url.startsWith(start));
+    !isBackend && console.log('backend (call?', url, isBackend);
+    return isBackend;
+  }
   /** test if given URL is for backend (but not API) */
   private isBackendButNotApiUrl(url: string): boolean {
     const isBackend = !!backendPrefixes.find(start => url.startsWith(start)) && !this.isApiUrl(url);
